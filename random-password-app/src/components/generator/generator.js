@@ -55,7 +55,10 @@ const handleFormSubmit = (e) => {
 
     if(formState.charLength > 35) {
         alert('Password can only be 35 characters!');
+
     }
+
+  
 
     let newPassword = '';
         for (let i = 0; i < formState.charLength; i++) {
@@ -66,6 +69,7 @@ const handleFormSubmit = (e) => {
         setPassword(newPassword);
 };
     return(
+
     <div className='card'>
         <div className='card-content'>
             <h2 className='is-size-4'>Generate Password</h2>
@@ -88,7 +92,7 @@ const handleFormSubmit = (e) => {
                         onChange={handleCheckChange}
                     /> Uppercase Letters
                 </label>
-                <label>
+                <label className='checkbox mr-2'>
                     <input
                     className='checkbox ml-2'
                         type="checkbox"
@@ -96,7 +100,7 @@ const handleFormSubmit = (e) => {
                         onChange={handleCheckChange}
                     /> Lowercase Letters
                 </label>
-                <label>
+                <label className='checkbox mr-2'>
                     <input
                     className='checkbox ml-2'
                         type="checkbox"
@@ -104,7 +108,7 @@ const handleFormSubmit = (e) => {
                         onChange={handleCheckChange}
                     /> Numbers
                 </label>
-                <label>
+                <label className='checkbox mr-2'>
                     <input
                     className='checkbox ml-2'
                         type="checkbox"
