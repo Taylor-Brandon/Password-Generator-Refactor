@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Password from './password/password';
+
 
 export default function Generator() {
     const [formState, setFormState] = useState({
@@ -11,6 +13,8 @@ export default function Generator() {
 
     const [charSet, setCharSet] = useState('');
     const [password, setPassword] = useState('');
+    const [isVisible, setIsVisible] = useState(false);
+    
 
 const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +33,10 @@ const handleCheckChange = (e) => {
     });
 };
 
+const handleDisplay = () => {
+    setIsVisible(true);
+}
+
 const handleFormSubmit = (e) => {
     e.preventDefault();
     let newCharSet = '';
@@ -41,8 +49,12 @@ const handleFormSubmit = (e) => {
         return alert('Please complete the form!');
     }
 
-    if (formState.charLength > '10') {
-        alert('Character length is only 10 characters!');
+    if (formState.charLength < 10) {
+        alert('Please enter at least 10 characters');
+    }
+
+    if(formState.charLength > 35) {
+        alert('Password can only be 35 characters!');
     }
 
     let newPassword = '';
@@ -54,16 +66,23 @@ const handleFormSubmit = (e) => {
         setPassword(newPassword);
 };
     return(
-    <div>
+    <div className='card'>
+        <div className='card-content'>
+            <h2 className='is-size-4'>Generate Password</h2>
        <form onSubmit={handleFormSubmit}>
+            <div className='field mt-3'>
+                <label className='label'>Password Length (Min: 10; Max: 35;)</label>
                 <input
+                className='input'
                     type="number"
                     name="charLength"
                     onChange={handleInputChange}
                     placeholder="Password length"
                 />
+                </div>
                 <label>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="upperCase"
                         onChange={handleCheckChange}
@@ -71,6 +90,7 @@ const handleFormSubmit = (e) => {
                 </label>
                 <label>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="lowerCase"
                         onChange={handleCheckChange}
@@ -78,6 +98,7 @@ const handleFormSubmit = (e) => {
                 </label>
                 <label>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="numeric"
                         onChange={handleCheckChange}
@@ -85,14 +106,18 @@ const handleFormSubmit = (e) => {
                 </label>
                 <label>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="specialChar"
                         onChange={handleCheckChange}
                     /> Special Characters
                 </label>
-                <button type="submit">Generate Password</button>
+                <button onClick={handleDisplay} id='submit-btn' className='button is-link has-text-white mt-3' type="submit">Generate Password</button>
             </form>
-            <h4>{password}</h4>
+            {isVisible && (
+                <Password password={password} />
+            )}
+            </div>
     </div>
     );
 }

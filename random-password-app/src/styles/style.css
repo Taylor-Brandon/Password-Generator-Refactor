@@ -1,0 +1,23 @@
+h1{
+    text-align: center;
+}
+.main{
+    display: flex;
+    justify-content: center;
+}
+.card{
+    width: 100%;
+    height: 500px;
+    border: 1px solid white;
+}
+#submit-btn{
+    display: flex;
+    justify-content: center;
+}
+#password{
+    border: 3px dashed white;
+    padding: 10px;
+    width: 50%;
+    border-radius: 10px;
+    text-align: center;
+}
