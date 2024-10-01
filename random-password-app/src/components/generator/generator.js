@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Password from './password/password';
+
 
 export default function Generator() {
     const [formState, setFormState] = useState({
@@ -11,6 +13,8 @@ export default function Generator() {
 
     const [charSet, setCharSet] = useState('');
     const [password, setPassword] = useState('');
+    const [isVisible, setIsVisible] = useState(false);
+    
 
 const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +33,10 @@ const handleCheckChange = (e) => {
     });
 };
 
+const handleDisplay = () => {
+    setIsVisible(true);
+}
+
 const handleFormSubmit = (e) => {
     e.preventDefault();
     let newCharSet = '';
@@ -42,12 +50,15 @@ const handleFormSubmit = (e) => {
     }
 
     if (formState.charLength < 10) {
-        alert('Your password must be 10 characters long!');
+        alert('Please enter at least 10 characters');
     }
 
-    if (formState.charLength > 35 ) {
-        alert('Character length is only 280 characters!');
+    if(formState.charLength > 35) {
+        alert('Password can only be 35 characters!');
+
     }
+
+  
 
     let newPassword = '';
         for (let i = 0; i < formState.charLength; i++) {
@@ -58,25 +69,24 @@ const handleFormSubmit = (e) => {
         setPassword(newPassword);
 };
     return(
-    <div id='card' className='card mt-5'>
+
+    <div className='card'>
         <div className='card-content'>
-            <h2 className='is-size-4 mb-5'>Generate Password</h2>
-            <div className='form'>
+            <h2 className='is-size-4'>Generate Password</h2>
        <form onSubmit={handleFormSubmit}>
-        <div className='field'>
-            <label className='label'>Password Length (Min: 10; Max: 35)</label>
-            <div className='control'>
+            <div className='field mt-3'>
+                <label className='label'>Password Length (Min: 10; Max: 35;)</label>
                 <input
-                    className='input'
+                className='input'
                     type="number"
                     name="charLength"
                     onChange={handleInputChange}
                     placeholder="Password length"
                 />
                 </div>
-                </div>
-                <label className='checkbox mr-2'>
+                <label>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="upperCase"
                         onChange={handleCheckChange}
@@ -84,6 +94,7 @@ const handleFormSubmit = (e) => {
                 </label>
                 <label className='checkbox mr-2'>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="lowerCase"
                         onChange={handleCheckChange}
@@ -91,6 +102,7 @@ const handleFormSubmit = (e) => {
                 </label>
                 <label className='checkbox mr-2'>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="numeric"
                         onChange={handleCheckChange}
@@ -98,15 +110,17 @@ const handleFormSubmit = (e) => {
                 </label>
                 <label className='checkbox mr-2'>
                     <input
+                    className='checkbox ml-2'
                         type="checkbox"
                         name="specialChar"
                         onChange={handleCheckChange}
                     /> Special Characters
                 </label>
-                <button id='submit-btn' className='button is-link mt-4 has-text-white' type="submit">Generate Password</button>
+                <button onClick={handleDisplay} id='submit-btn' className='button is-link has-text-white mt-3' type="submit">Generate Password</button>
             </form>
-            </div>
-            <h4 className='mt-5' id='password'>{password}</h4>
+            {isVisible && (
+                <Password password={password} />
+            )}
             </div>
     </div>
     );
